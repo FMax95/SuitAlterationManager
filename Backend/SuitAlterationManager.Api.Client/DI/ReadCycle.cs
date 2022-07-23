@@ -7,7 +7,7 @@ using SqlKata.Compilers;
 using SqlKata.Execution;
 using SuitAlterationManager.Infrastructure.ReadCycle;
 
-namespace SuitAlterationManager.Extensions.DI
+namespace SuitAlterationManager.Api.Client.DI
 {
     public static class ReadCycle
     {

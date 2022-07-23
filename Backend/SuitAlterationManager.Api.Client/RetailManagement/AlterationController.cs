@@ -2,12 +2,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SuitAlterationManager.Api.Client.RetailManagement.Models;
-using SuitAlterationManager.Api.Client.SystemManagement.Queries;
 using SuitAlterationManager.Domain.RetailManagement.DTO;
 using SuitAlterationManager.Domain.SystemManagement.Services.Interfaces;
-using SuitAlterationManager.Extensions;
 using SuitAlterationManager.Infrastructure.EF;
-using System;
 using System.Threading.Tasks;
 
 namespace SuitAlterationManager.Api.Client.SystemManagement

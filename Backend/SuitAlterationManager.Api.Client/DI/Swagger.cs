@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace SuitAlterationManager.Extensions.DI
+namespace SuitAlterationManager.Api.Client.DI
 {
     public static class Swagger
     {

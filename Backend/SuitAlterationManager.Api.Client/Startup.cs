@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SuitAlterationManager.Extensions.DI;
+using SuitAlterationManager.Api.Client.DI;
+using SuitAlterationManager.Api.Middlewares;
 
 namespace SuitAlterationManager.Api.Client
 {
@@ -53,6 +54,7 @@ namespace SuitAlterationManager.Api.Client
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 

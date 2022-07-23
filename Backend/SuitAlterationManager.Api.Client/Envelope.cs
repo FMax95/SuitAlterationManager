@@ -1,6 +1,7 @@
 using System;
+using System.Text.Json;
 
-namespace SuitAlterationManager.Extensions
+namespace SuitAlterationManager.Api.Client
 {  
     [Serializable]
     public partial struct Envelope
@@ -39,13 +40,17 @@ namespace SuitAlterationManager.Extensions
         {
             return env.IsSuccess ? Envelope.Success(true) : Envelope.Failure(env.Error);
         }
+
     }
     
     public partial struct Envelope
     {
         public static Envelope Success(bool isSuccess) => new Envelope(default, isSuccess);
         public static Envelope Failure(object error) => new Envelope(error, false);
-
         public static Envelope<T> Success<T>(T result) => new Envelope<T>(result, null,true);
+        public string ToJson()
+        {
+            return JsonSerializer.Serialize(this);
+        }
     }
 }
