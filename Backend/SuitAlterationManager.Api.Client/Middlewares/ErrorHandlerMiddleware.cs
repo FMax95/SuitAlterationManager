@@ -100,7 +100,7 @@ namespace SuitAlterationManager.Api.Middlewares
 	{
 		public static Error ToError(this DomainException domainException) => new Error(domainException);
 		public static Error ToError(this Exception exception) => new Error(exception);
-		public static Error ToDefaultError(this Exception exception) => new Error("Unhandled exception", "Unexpected exception was thrown.");
+		public static Error ToDefaultError(this Exception exception) => new Error("UnhandledException", exception.Message);
 	}
 
 }
