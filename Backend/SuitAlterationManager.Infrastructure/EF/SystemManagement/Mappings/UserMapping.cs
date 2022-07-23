@@ -20,21 +20,6 @@ namespace SuitAlterationManager.Infrastructure.EF.SystemManagement.Mappings
 				.IsRequired()
 				.IsConcurrencyToken()
 				.ValueGeneratedOnAddOrUpdate();
-
-			builder.HasOne(p => p.UserInformation)
-				.WithOne(p => p.User)
-				.HasForeignKey<UserInformation>(p => p.Id);
-
-			builder.HasMany(p => p.Groups)
-				.WithOne()
-				.HasForeignKey(p => p.IdUser)
-				.IsRequired();
-
-            builder.HasMany(p => p.RefreshTokens)
-                .WithOne()
-                .HasForeignKey(p => p.IdUser)
-                .IsRequired();
-
         }
 	}
 }

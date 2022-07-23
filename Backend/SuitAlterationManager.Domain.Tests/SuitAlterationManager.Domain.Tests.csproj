@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SuitAlterationManager.Api.Client\SuitAlterationManager.Api.Client.csproj" />
-    <ProjectReference Include="..\SuitAlterationManager.Api.CMS\SuitAlterationManager.Api.CMS.csproj" />
     <ProjectReference Include="..\SuitAlterationManager.Domain\SuitAlterationManager.Domain.csproj" />
   </ItemGroup>
 

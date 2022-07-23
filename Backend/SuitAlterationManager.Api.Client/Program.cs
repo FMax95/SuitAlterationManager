@@ -5,10 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Events;
-using SuitAlterationManager.Infrastructure.Logger;
-using SuitAlterationManager.Infrastructure.Logger.Managers;
-using Log = SuitAlterationManager.Extensions.DI.Log;
 
 namespace SuitAlterationManager.Api.Client
 {
@@ -32,10 +28,7 @@ namespace SuitAlterationManager.Api.Client
             }
             catch (Exception ex)
             {
-                LoggerServiceOptions loggerServiceOptions =
-                    Log.GetLoggerOptions(configuration);
-                Serilog.Log.Logger = new SerilogManager(loggerServiceOptions).Logger;
-                Serilog.Log.Logger.Write(LogEventLevel.Fatal, "Error during Startup " + ex);
+                //TODO flavio manage exception on startup
                 return 1;
             }
             finally

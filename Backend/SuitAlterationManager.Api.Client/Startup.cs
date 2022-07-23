@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SuitAlterationManager.Extensions.Attributes;
 using SuitAlterationManager.Extensions.DI;
-using SuitAlterationManager.Extensions.Middlewares;
 
 namespace SuitAlterationManager.Api.Client
 {
@@ -30,17 +28,13 @@ namespace SuitAlterationManager.Api.Client
                 options.AddPolicy("AllowOrigins", builder =>
                 {
                     builder
-                        .WithOrigins(
-                            Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? new string[] { })
+                        .AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
                 });
             });
-            services.AddEmailService(Configuration.GetSection("Email"));
-
-            services.AddAuth(Configuration.GetSection("Auth"));
-
+            
             services.AddWriteCycle(Configuration.GetConnectionString("Db"),
                 Assembly.Load("SuitAlterationManager.Domain"),
                 Assembly.Load("SuitAlterationManager.Infrastructure"),
@@ -49,21 +43,10 @@ namespace SuitAlterationManager.Api.Client
             services.AddReadCycle(Configuration.GetConnectionString("Db"),
                 Assembly.Load("SuitAlterationManager.Api.Client"));
 
-            services.AddFileStorage(Configuration.GetSection("FileStorage"));
-
-            services.AddLoggerService(Configuration);
-
             services.AddSwagger("v1", Configuration["ApiName"]);
 
             services.AddHttpContextAccessor();
-            services.AddControllers(options =>
-            {
-                // The order parameter rappresents the attribute execution order.
-                // If another attribute is executed at the same time (AllowExceptionAttribute), it'll be applied first.
-                options.Filters.Add<DisallowExceptionAttribute>(order: 2);
-            });
-
-            // Base services and base repositories
+            services.AddControllers();
             services.RegisterAllTypes(Configuration);
         }
 
@@ -79,13 +62,8 @@ namespace SuitAlterationManager.Api.Client
 
             app.UseCors("AllowOrigins");
 
-            // File Storage Service	
-            app.UseFileStorage(Configuration["FileStorage:StorageRootPath"], "/contents",
-                Configuration.GetSection("FileStorage"));
-
             app.UseRouting();
 
-            app.UseMiddleware<AuthMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
 

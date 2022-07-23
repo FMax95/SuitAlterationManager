@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,37 @@ namespace SuitAlterationManager.Extensions.DI
                 }
             });
         }
+
+        public static void AddSwaggerJwtAuthentication(this SwaggerGenOptions swaggerGenOptions)
+        {
+            swaggerGenOptions.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                In = ParameterLocation.Header,
+                Description = "Please insert JWT with Bearer into field",
+                Name = "Authorization",
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer"
+            });
+
+            swaggerGenOptions.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        },
+                        Scheme = "oauth2",
+                        Name = "Bearer",
+                        In = ParameterLocation.Header
+                    },
+                    new List<string>()
+                }
+            });
+        }
+
         public static void UseSwagger(this IApplicationBuilder app, IConfiguration configuration)
         {
             app.UseSwagger(c =>
