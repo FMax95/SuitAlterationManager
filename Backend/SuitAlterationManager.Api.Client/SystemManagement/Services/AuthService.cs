@@ -25,10 +25,10 @@ namespace SuitAlterationManager.Api.Client.SystemManagement.Services
             var user = await this.userQueries.FindUserByEmailAsync(email);
 
             if (user == null)
-                throw new ApplicationException(ApplicationServiceExceptionCode.WrongEmail);
+                throw new ApplicationServiceException(ApplicationServiceExceptionCode.WrongEmail);
 
-            if (!VerifyPassword(password, user))
-                throw new ApplicationException(ApplicationServiceExceptionCode.WrongPassword);
+            if (!VerifyPassword(password, user.Password))
+                throw new ApplicationServiceException(ApplicationServiceExceptionCode.WrongPassword);
 
             return new AuthResponse()
             {
@@ -65,9 +65,9 @@ namespace SuitAlterationManager.Api.Client.SystemManagement.Services
             return new ClaimsIdentity(claims);
         }
 
-        private static bool VerifyPassword(string password, Responses.UserResponse user)
+        public virtual bool VerifyPassword(string insertedPassword, string userPassword)
         {
-            if (!BC.Verify(password, user.Password))
+            if (!BC.Verify(insertedPassword, userPassword))
                 return false;
             return true;
         }

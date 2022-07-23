@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6E1D9A80
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuitAlterationManager.Domain.Tests", "SuitAlterationManager.Domain.Tests\SuitAlterationManager.Domain.Tests.csproj", "{4718465F-E07A-4AA2-9DFD-C09BB87C3954}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuitAlterationManager.Api.Client.Tests", "SuitAlterationManager.Api.Client.Tests\SuitAlterationManager.Api.Client.Tests.csproj", "{5409810F-34CE-4C3E-8154-E3944847B947}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuitAlterationManager.Api.Client", "SuitAlterationManager.Api.Client\SuitAlterationManager.Api.Client.csproj", "{9EF97673-C5CE-4585-BB5E-54FA3E940000}"
 EndProject
 Global
@@ -31,6 +33,10 @@ Global
 		{4718465F-E07A-4AA2-9DFD-C09BB87C3954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4718465F-E07A-4AA2-9DFD-C09BB87C3954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4718465F-E07A-4AA2-9DFD-C09BB87C3954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5409810F-34CE-4C3E-8154-E3944847B947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5409810F-34CE-4C3E-8154-E3944847B947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5409810F-34CE-4C3E-8154-E3944847B947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5409810F-34CE-4C3E-8154-E3944847B947}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9EF97673-C5CE-4585-BB5E-54FA3E940000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9EF97673-C5CE-4585-BB5E-54FA3E940000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EF97673-C5CE-4585-BB5E-54FA3E940000}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,6 +47,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4718465F-E07A-4AA2-9DFD-C09BB87C3954} = {6E1D9A80-181B-46C9-8525-F8734952C294}
+		{5409810F-34CE-4C3E-8154-E3944847B947} = {6E1D9A80-181B-46C9-8525-F8734952C294}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {78962E00-5D5C-4E0E-A01D-E70DFDB5652D}
