@@ -33,6 +33,8 @@ namespace SuitAlterationManager.Api.Client
                 Assembly.Load("SuitAlterationManager.Api.Client"));
 
             services.AddSwagger("v1", Configuration["ApiName"]);
+            services.AddJWTAuth();
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddHttpContextAccessor();

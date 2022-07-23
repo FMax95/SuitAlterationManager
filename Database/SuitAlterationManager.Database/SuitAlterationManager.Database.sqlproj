@@ -60,9 +60,20 @@
     <Folder Include="Security" />
     <Folder Include="Security\Schema" />
     <Folder Include="Retail\Tables" />
+    <Folder Include="System" />
+    <Folder Include="System\Tables" />
+    <Folder Include="_testdata" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Schema\Retail.sql" />
     <Build Include="Retail\Tables\Alteration.sql" />
+    <Build Include="Security\Schema\System.sql" />
+    <Build Include="System\Tables\User.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="_testdata\init.sql" />
   </ItemGroup>
 </Project>

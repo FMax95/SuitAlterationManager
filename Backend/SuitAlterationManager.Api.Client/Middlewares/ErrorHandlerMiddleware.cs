@@ -41,7 +41,7 @@ namespace SuitAlterationManager.Api.Middlewares
 						statusCode = (int)HttpStatusCode.Unauthorized;
 						envelope = Envelope.Failure(e.ToError());
 						break;
-					case DomainException e:
+					case Domain.Base.Validation.ApplicationServiceException e:
 						statusCode = (int)HttpStatusCode.BadRequest;
 						envelope = Envelope.Failure(e.ToError());
 						break;
@@ -89,7 +89,7 @@ namespace SuitAlterationManager.Api.Middlewares
 			Message = exception.Message;
 		}
 
-		public Error(DomainException exception)
+		public Error(Domain.Base.Validation.ApplicationServiceException exception)
 		{
 			Code = exception.Code;
 			Message = exception.Message;
@@ -98,7 +98,7 @@ namespace SuitAlterationManager.Api.Middlewares
 	}
 	public static class ErrorExtensions
 	{
-		public static Error ToError(this DomainException domainException) => new Error(domainException);
+		public static Error ToError(this Domain.Base.Validation.ApplicationServiceException domainException) => new Error(domainException);
 		public static Error ToError(this Exception exception) => new Error(exception);
 		public static Error ToDefaultError(this Exception exception) => new Error("UnhandledException", exception.Message);
 	}

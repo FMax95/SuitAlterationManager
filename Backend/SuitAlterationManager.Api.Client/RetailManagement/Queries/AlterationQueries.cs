@@ -6,7 +6,7 @@ using SqlKata.Execution;
 using SuitAlterationManager.Api.Client.SystemManagement.Responses;
 using SuitAlterationManager.Infrastructure.ReadCycle;
 
-namespace SuitAlterationManager.Api.Client.SystemManagement.Queries
+namespace SuitAlterationManager.Api.Client.AlterationManagement.Queries
 {
     public interface IAlterationQueries : IQueryService
     {
