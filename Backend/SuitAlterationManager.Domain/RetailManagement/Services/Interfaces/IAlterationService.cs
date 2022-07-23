@@ -2,7 +2,7 @@
 
 namespace SuitAlterationManager.Domain.SystemManagement.Services.Interfaces
 {
-    public interface IUserService : IBaseService
+    public interface IAlterationService : IBaseService
     {
     }
 }

@@ -1,5 +1,3 @@
-using SuitAlterationManager.Domain.SystemManagement.ValueObjects;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SuitAlterationManager.Extensions
@@ -7,7 +5,6 @@ namespace SuitAlterationManager.Extensions
     [Controller]
 	public abstract class BaseController : ControllerBase
 	{
-		public UserID LoggedUserId => (UserID)HttpContext.Items[nameof(LoggedUserId)];
 		protected IActionResult NOk() => base.Ok(Envelope.Success(false));
 		protected new IActionResult Ok() => base.Ok(Envelope.Success(true));
 		protected IActionResult Ok<T>(T result) => base.Ok(Envelope.Success(result));

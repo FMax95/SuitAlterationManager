@@ -9,7 +9,7 @@ namespace SuitAlterationManager.Infrastructure.EF
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.ApplyConfiguration(new UserMapping());
+			modelBuilder.ApplyConfiguration(new AlterationMapping());
 		}
 	}
 }
