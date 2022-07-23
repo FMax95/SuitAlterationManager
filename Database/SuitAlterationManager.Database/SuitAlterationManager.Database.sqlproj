@@ -56,32 +56,13 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="System" />
+    <Folder Include="Retail" />
     <Folder Include="Security" />
-    <Folder Include="_Data" />
     <Folder Include="Security\Schema" />
-    <Folder Include="System\Tables" />
+    <Folder Include="Retail\Tables" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="_Data\01_init_data.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="System\Tables\Group.sql" />
-    <Build Include="Security\Schema\System.sql" />
-    <Build Include="Security\SuitAlterationManagerUser.sql" />
-    <Build Include="Security\SuitAlterationManagerUserLogin.sql" />
-    <Build Include="System\Tables\User.sql" />
-    <Build Include="System\Tables\UserGroup.sql" />
-    <Build Include="System\Tables\UserInformation.sql" />
-    <Build Include="System\Tables\RefreshToken.sql" />
-    <Build Include="System\Tables\Context.sql" />
-    <Build Include="System\Tables\Action.sql" />
-    <Build Include="System\Tables\GroupPermission.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <PostDeploy Include="Script.PostDeployment.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <PreDeploy Include="Script.PreDeployment.sql" />
+    <Build Include="Security\Schema\Retail.sql" />
+    <Build Include="Retail\Tables\Alteration.sql" />
   </ItemGroup>
 </Project>

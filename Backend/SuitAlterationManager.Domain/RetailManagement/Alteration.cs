@@ -9,15 +9,14 @@ namespace SuitAlterationManager.Domain.AlterationManagement
 {
     public class Alteration : AggregateRoot<AlterationID>
     {
-        private List<int> AvailableMeasures = new List<int> { -5 , 5 };
+        private static List<int> AvailableMeasures = new List<int> { -5 , 5 };
         public string CustomerEmail { get; set; }
         public AlterationType Type { get; set; }
         public AlterationTypeDirection Direction { get; set; }
-        public int Measure { get; set; }
+        public int MeasureCM { get; set; }
         public AlterationStatus Status { get; set; }
-
-        public DateTimeOffset UpdateDate { get; set; }
-        public DateTimeOffset CreateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
+        public DateTime CreateDate { get; set; }
 
         public Alteration()
         {
@@ -25,16 +24,25 @@ namespace SuitAlterationManager.Domain.AlterationManagement
             this.Status = AlterationStatus.Started;
         }
 
-        public Alteration Create(string customerEmail, AlterationType alterationType, AlterationTypeDirection alterationTypeDirection, int measure)
+        public static Alteration Create(string customerEmail, AlterationType alterationType, AlterationTypeDirection alterationTypeDirection, int measure)
         {
-            if (!this.AvailableMeasures.Contains(measure))
+            try
+            {
+                new System.Net.Mail.MailAddress(customerEmail);
+            }
+            catch (FormatException)
+            {
+                throw new DomainException(DomainExceptionCode.CustomerEmailNotVaild);
+            }
+
+            if (!AvailableMeasures.Contains(measure))
                 throw new DomainException(DomainExceptionCode.MeasureNotVaild);
 
             var entity = new Alteration();
             entity.CustomerEmail = customerEmail;
             entity.Type = alterationType;
             entity.Direction = alterationTypeDirection;
-            entity.Measure = measure;
+            entity.MeasureCM = measure;
 
             return entity;
         }
