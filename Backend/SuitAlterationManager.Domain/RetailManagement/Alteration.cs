@@ -9,7 +9,7 @@ namespace SuitAlterationManager.Domain.AlterationManagement
 {
     public class Alteration : AggregateRoot<AlterationID>
     {
-        private static List<int> AvailableMeasures = new List<int> { -5 , 5 };
+        private static List<int> AvailableMeasures = new List<int> { -5, 5 };
         public string CustomerEmail { get; set; }
         public AlterationType Type { get; set; }
         public AlterationTypeDirection Direction { get; set; }
@@ -38,13 +38,14 @@ namespace SuitAlterationManager.Domain.AlterationManagement
             if (!AvailableMeasures.Contains(measure))
                 throw new DomainException(DomainExceptionCode.MeasureNotVaild);
 
-            var entity = new Alteration();
-            entity.CustomerEmail = customerEmail;
-            entity.Type = alterationType;
-            entity.Direction = alterationTypeDirection;
-            entity.MeasureCM = measure;
-
-            return entity;
+            return new Alteration()
+            {
+                Id = new AlterationID(Guid.NewGuid()),
+                CustomerEmail = customerEmail,
+                Type = alterationType,
+                Direction = alterationTypeDirection,
+                MeasureCM = measure
+            };
         }
     }
 }

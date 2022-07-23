@@ -23,18 +23,6 @@ namespace SuitAlterationManager.Api.Client
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowOrigins", builder =>
-                {
-                    builder
-                        .AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                });
-            });
-            
             services.AddWriteCycle(Configuration.GetConnectionString("Db"),
                 Assembly.Load("SuitAlterationManager.Domain"),
                 Assembly.Load("SuitAlterationManager.Infrastructure"),
@@ -44,6 +32,7 @@ namespace SuitAlterationManager.Api.Client
                 Assembly.Load("SuitAlterationManager.Api.Client"));
 
             services.AddSwagger("v1", Configuration["ApiName"]);
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddHttpContextAccessor();
             services.AddControllers();
@@ -59,8 +48,6 @@ namespace SuitAlterationManager.Api.Client
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApplication1 v1"));
             }
-
-            app.UseCors("AllowOrigins");
 
             app.UseRouting();
 
