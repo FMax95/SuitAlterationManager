@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +29,12 @@ namespace SuitAlterationManager.Api.Client
             }
             catch (Exception ex)
             {
+                Log.Logger = new LoggerConfiguration()
+                    .WriteTo
+                    .ApplicationInsights(new TelemetryConfiguration { InstrumentationKey = "33b99516-996a-4a14-aa8d-53013a40bf3e" }, TelemetryConverter.Traces)
+                    .CreateLogger();
+
+                Log.ForContext<Program>().Fatal(ex, "Host terminated unexpectedly!");
                 return 1;
             }
             finally
@@ -42,7 +49,6 @@ namespace SuitAlterationManager.Api.Client
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    //webBuilder.UseApplicationInsights("e71bf8cd-f56d-4c4f-9c24-3c89156b6642");
                     webBuilder.UseConfiguration(configuration);
                 })
                 .UseSerilog();

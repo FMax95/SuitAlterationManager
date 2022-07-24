@@ -1,7 +1,10 @@
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using SuitAlterationManager.Extensions;
 using SuitAlterationManager.Extensions.DI;
+using System;
 using System.Reflection;
 
 namespace PaymentFunctionApp
@@ -10,7 +13,9 @@ namespace PaymentFunctionApp
     {
         public static void Main()
         {
-            var host = new HostBuilder()
+            try
+            {
+                var host = new HostBuilder()
                 .ConfigureFunctionsWorkerDefaults()
                 .ConfigureServices((context, services) =>
                 {
@@ -22,7 +27,21 @@ namespace PaymentFunctionApp
                 })
                 .Build();
 
-            host.Run();
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Logger = new LoggerConfiguration()
+                    .WriteTo
+                    .ApplicationInsights(new TelemetryConfiguration { InstrumentationKey = "33b99516-996a-4a14-aa8d-53013a40bf3e" }, TelemetryConverter.Traces)
+                    .CreateLogger();
+
+                Log.ForContext<Program>().Fatal(ex, "Host terminated unexpectedly!");
+            }
+            finally
+            {
+                Serilog.Log.CloseAndFlush();
+            }
         }
     }
 }
