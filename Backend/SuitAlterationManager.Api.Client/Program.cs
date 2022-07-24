@@ -28,7 +28,6 @@ namespace SuitAlterationManager.Api.Client
             }
             catch (Exception ex)
             {
-                //TODO flavio manage exception on startup
                 return 1;
             }
             finally
@@ -43,7 +42,7 @@ namespace SuitAlterationManager.Api.Client
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseSentry();
+                    //webBuilder.UseApplicationInsights("e71bf8cd-f56d-4c4f-9c24-3c89156b6642");
                     webBuilder.UseConfiguration(configuration);
                 })
                 .UseSerilog();

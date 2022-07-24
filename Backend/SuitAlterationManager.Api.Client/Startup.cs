@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SuitAlterationManager.Api.Client.DI;
 using SuitAlterationManager.Api.Middlewares;
+using SuitAlterationManager.Infrastructure.Logger;
 
 namespace SuitAlterationManager.Api.Client
 {
@@ -32,9 +33,11 @@ namespace SuitAlterationManager.Api.Client
             services.AddReadCycle(Configuration.GetConnectionString("Db"),
                 Assembly.Load("SuitAlterationManager.Api.Client"));
 
+            services.AddSingleton<ILoggerService, LoggerService>();
             services.AddSwagger("v1", Configuration["ApiName"]);
             services.AddJWTAuth();
 
+            
             services.AddAutoMapper(typeof(Startup));
 
             services.AddHttpContextAccessor();

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using SuitAlterationManager.Domain.Base.Attributes;
+using System;
 
 namespace SuitAlterationManager.Domain.Base.Validation
 {
+	[ExcludeFromLogging]
 	public class ApplicationServiceException : Exception
 	{
 		public string Code { get; }

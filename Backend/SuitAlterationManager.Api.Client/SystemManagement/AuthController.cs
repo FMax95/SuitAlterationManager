@@ -5,6 +5,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using SuitAlterationManager.Api.Client.SystemManagement.Services.Interfaces;
 using SuitAlterationManager.Api.Client.SystemManagement.Models;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace SuitAlterationManager.Api.Client.SystemManagement
 {
@@ -12,14 +14,11 @@ namespace SuitAlterationManager.Api.Client.SystemManagement
 	public class AuthController : BaseController
 	{
 		private readonly IAuthService authService;
-		private readonly DbContext context;
 
 		public AuthController(
-			IAuthService authService,
-			DbContext context)
+			IAuthService authService)
 		{
 			this.authService = authService;
-			this.context = context;
 		}
 
 		[HttpPost("authenticate")]
