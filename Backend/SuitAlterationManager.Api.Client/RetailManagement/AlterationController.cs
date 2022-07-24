@@ -7,6 +7,7 @@ using SuitAlterationManager.Api.Client.RetailManagement.Models;
 using SuitAlterationManager.Domain.RetailManagement.DTO;
 using SuitAlterationManager.Domain.SystemManagement.Services.Interfaces;
 using SuitAlterationManager.Infrastructure.EF;
+using System;
 using System.Threading.Tasks;
 
 namespace SuitAlterationManager.Api.Client.SystemManagement
@@ -33,6 +34,26 @@ namespace SuitAlterationManager.Api.Client.SystemManagement
         {
             var result = await alterationQueries.GetAlterationsAsync();
             return Ok(result);
+        }
+
+        [HttpPut("{idAlteration}/start")]
+        public async Task<IActionResult> Start([FromRoute] Guid idAlteration)
+        {
+            return await context.Execute(async () =>
+            {
+                await alterationService.StartAlterationAsync(idAlteration);
+                return Ok();
+            });
+        }
+
+        [HttpPut("{idAlteration}/finish")]
+        public async Task<IActionResult> Finish([FromRoute] Guid idAlteration)
+        {
+            return await context.Execute(async () =>
+            {
+                await alterationService.FinishAlterationAsync(idAlteration);
+                return Ok();
+            });
         }
 
         [HttpPost]

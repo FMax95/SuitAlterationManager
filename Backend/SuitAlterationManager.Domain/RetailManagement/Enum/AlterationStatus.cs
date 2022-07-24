@@ -6,8 +6,9 @@ namespace SuitAlterationManager.Domain.AlterationManagement.Enum
 {
     public enum AlterationStatus
     {
-        Started = 1,
+        Created = 1,
         Paid = 2,
-        Done= 3,
+        Started = 3,        
+        Done= 4,
     }
 }

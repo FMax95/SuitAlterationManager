@@ -21,7 +21,7 @@ namespace SuitAlterationManager.Domain.AlterationManagement
         public Alteration()
         {
             this.CreateDate = DateTime.Now;
-            this.Status = AlterationStatus.Started;
+            this.Status = AlterationStatus.Created;
         }
 
         public static Alteration Create(string customerEmail, AlterationType alterationType, AlterationTypeDirection alterationTypeDirection, int measure)
@@ -46,6 +46,20 @@ namespace SuitAlterationManager.Domain.AlterationManagement
                 Direction = alterationTypeDirection,
                 MeasureCM = measure
             };
+        }
+
+        public void StartAlteration()
+        {
+            if (this.Status != AlterationStatus.Paid)
+                throw new DomainException(DomainExceptionCode.CannotStartAlteration_NotPaid);
+            this.Status = AlterationStatus.Started;
+        }
+
+        public void FinishAlteration()
+        {
+            if (this.Status != AlterationStatus.Started)
+                throw new DomainException(DomainExceptionCode.CannotFinishAlteration_NotStarted);
+            this.Status = AlterationStatus.Done;
         }
     }
 }

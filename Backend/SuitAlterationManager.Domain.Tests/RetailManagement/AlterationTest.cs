@@ -2,6 +2,7 @@
 using SuitAlterationManager.Domain.AlterationManagement.Enum;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SuitAlterationManager.Domain.Base.Validation;
+using SuitAlterationManager.Domain.Tests.RetailManagement.Builders;
 
 namespace SuitAlterationManager.Domain.Tests.RetailManagement
 {
@@ -22,7 +23,7 @@ namespace SuitAlterationManager.Domain.Tests.RetailManagement
             Assert.AreEqual(alterationTypeDirection, alteration.Direction);
             Assert.IsNull(alteration.UpdateDate);
             Assert.IsNotNull(alteration.CreateDate);
-            Assert.AreEqual(AlterationStatus.Started, alteration.Status);
+            Assert.AreEqual(AlterationStatus.Created, alteration.Status);
         }
 
 
@@ -47,6 +48,44 @@ namespace SuitAlterationManager.Domain.Tests.RetailManagement
                                                alterationType: alterationType,
                                                alterationTypeDirection: alterationTypeDirection,
                                                measure: measure));
+        }
+
+        [TestMethod]
+        [DataRow(AlterationStatus.Started)]
+        [DataRow(AlterationStatus.Created)]
+        [DataRow(AlterationStatus.Done)]
+        public void StartAlteration_WrongStatus(AlterationStatus status)
+        {
+            Alteration alteration = new AlterationBuilder().WithStatus(status);
+            Assert.That.ThrowsWithCode<DomainException>(DomainExceptionCode.CannotStartAlteration_NotPaid, () =>
+                alteration.StartAlteration());
+        }
+
+        [TestMethod]
+        public void StartAlteration()
+        {
+            Alteration alteration = new AlterationBuilder().WithStatus(AlterationStatus.Paid);
+            alteration.StartAlteration();
+            Assert.AreEqual(AlterationStatus.Started, alteration.Status);
+        }
+
+        [TestMethod]
+        [DataRow(AlterationStatus.Paid)]
+        [DataRow(AlterationStatus.Created)]
+        [DataRow(AlterationStatus.Done)]
+        public void FinishAlteration_WrongStatus(AlterationStatus status)
+        {
+            Alteration alteration = new AlterationBuilder().WithStatus(status);
+            Assert.That.ThrowsWithCode<DomainException>(DomainExceptionCode.CannotFinishAlteration_NotStarted, () =>
+                alteration.FinishAlteration());
+        }
+
+        [TestMethod]
+        public void FinishAlteration()
+        {
+            Alteration alteration = new AlterationBuilder().WithStatus(AlterationStatus.Started);
+            alteration.FinishAlteration();
+            Assert.AreEqual(AlterationStatus.Done, alteration.Status);
         }
     }
 }

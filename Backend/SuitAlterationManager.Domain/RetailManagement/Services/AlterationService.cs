@@ -1,7 +1,9 @@
 ﻿using SuitAlterationManager.Domain.AlterationManagement;
+using SuitAlterationManager.Domain.AlterationManagement.ValueObjects;
 using SuitAlterationManager.Domain.RetailManagement.DTO;
 using SuitAlterationManager.Domain.RetailManagement.Repositories;
 using SuitAlterationManager.Domain.SystemManagement.Services.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace SuitAlterationManager.Domain.SystemManagement.Services
@@ -23,6 +25,19 @@ namespace SuitAlterationManager.Domain.SystemManagement.Services
                                            measure: input.Measure);
             
             await this.alterationRepository.AddAsync(entity);
+        }
+
+
+        public async Task StartAlterationAsync(Guid idAlteration)
+        {
+            var entity = await this.alterationRepository.GetAsync(new AlterationID(idAlteration));
+            entity.StartAlteration();
+        }
+
+        public async Task FinishAlterationAsync(Guid idAlteration)
+        {
+            var entity = await this.alterationRepository.GetAsync(new AlterationID(idAlteration));
+            entity.FinishAlteration();
         }
 
     }
