@@ -14,14 +14,18 @@ namespace SuitAlterationManager.Api.Client.RetailManagement.Services
         public AlterationApplicationService(IAlterationService alterationService, IAlterationQueries alterationQueries)
         {
             this.alterationService = alterationService;
-            this.alterationQueries = alterationQueries; 
+            this.alterationQueries = alterationQueries;
         }
 
         public async Task FinishAlteration(Guid idAlteration)
         {
             await alterationService.FinishAlterationAsync(idAlteration);
-            var alteration = await this.alterationQueries.FindAlterationAsync(idAlteration);
-            await AzureServiceBusDispatcher.SendMessageAsync("AlterationFinished", JsonConvert.SerializeObject(alteration));
+            var customerEmail = await this.alterationQueries.FindAlterationMailAsync(idAlteration);
+            await AzureServiceBusDispatcher.SendMessageAsync("AlterationFinished", JsonConvert.SerializeObject(new
+            {
+                idAlteration = idAlteration,
+                customerEmail = customerEmail
+            }));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace SuitAlterationManager.Api.Client.AlterationManagement.Queries
 {
     public interface IAlterationQueries : IQueryService
     {
-        Task<AlterationResponse> FindAlterationAsync(Guid idAlteration);
+        Task<string> FindAlterationMailAsync(Guid idAlteration);
         Task<List<AlterationResponse>> GetAlterationsAsync();
     }
 
@@ -41,22 +41,15 @@ namespace SuitAlterationManager.Api.Client.AlterationManagement.Queries
 
             return result.ToList();
         }
-        public async Task<AlterationResponse> FindAlterationAsync(Guid idAlteration)
+        public async Task<string> FindAlterationMailAsync(Guid idAlteration)
         {
             var query = db.Query("Retail.Alteration")
               .Where("Id", idAlteration)
               .Select(
-                "Alteration.Id",
-                "Alteration.CustomerEmail",
-                "Alteration.Type",
-                "Alteration.Direction",
-                "Alteration.Status",
-                "Alteration.MeasureCM",
-                "Alteration.CreateDate",
-                "Alteration.UpdateDate"
+                "Alteration.CustomerEmail"
               );
 
-            var result = await query.FirstOrDefaultAsync<AlterationResponse>();
+            var result = await query.FirstOrDefaultAsync<string>();
 
             return result;
         }
