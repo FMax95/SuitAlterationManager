@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <AssemblyName>FirstRow.Extensions</AssemblyName>
-    <RootNamespace>FirstRow.Extensions</RootNamespace>
+    <AssemblyName>SuitAlterationManager.Extensions</AssemblyName>
+    <RootNamespace>SuitAlterationManager.Extensions</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
