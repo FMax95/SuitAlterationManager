@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SuitAlterationManager.Api.Client.AlterationManagement.Queries;
 using SuitAlterationManager.Api.Client.RetailManagement.Models;
+using SuitAlterationManager.Api.Client.RetailManagement.Services.Interfaces;
 using SuitAlterationManager.Domain.RetailManagement.DTO;
 using SuitAlterationManager.Domain.SystemManagement.Services.Interfaces;
 using SuitAlterationManager.Infrastructure.EF;
@@ -18,15 +19,17 @@ namespace SuitAlterationManager.Api.Client.SystemManagement
     {
         private readonly DbContext context;
         private readonly IAlterationService alterationService;
+        private readonly IAlterationApplicationService alterationApplicationService;
         private readonly IMapper mapper;
         private readonly IAlterationQueries alterationQueries;
 
-        public AlterationController(DbContext context, IAlterationService alterationService, IMapper mapper, IAlterationQueries alterationQueries)
+        public AlterationController(DbContext context, IAlterationService alterationService, IMapper mapper, IAlterationQueries alterationQueries, IAlterationApplicationService alterationApplicationService)
         {
             this.context = context;
             this.alterationService = alterationService;
             this.mapper = mapper;
             this.alterationQueries = alterationQueries;
+            this.alterationApplicationService = alterationApplicationService;
         }
 
         [HttpGet]
@@ -51,7 +54,7 @@ namespace SuitAlterationManager.Api.Client.SystemManagement
         {
             return await context.Execute(async () =>
             {
-                await alterationService.FinishAlterationAsync(idAlteration);
+                await alterationApplicationService.FinishAlteration(idAlteration);
                 return Ok();
             });
         }

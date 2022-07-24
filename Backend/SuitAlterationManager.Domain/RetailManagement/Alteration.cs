@@ -53,6 +53,7 @@ namespace SuitAlterationManager.Domain.AlterationManagement
             if (this.Status != AlterationStatus.Paid)
                 throw new DomainException(DomainExceptionCode.CannotStartAlteration_NotPaid);
             this.Status = AlterationStatus.Started;
+            this.UpdateDate = DateTime.Now;
         }
 
         public void FinishAlteration()
@@ -60,6 +61,7 @@ namespace SuitAlterationManager.Domain.AlterationManagement
             if (this.Status != AlterationStatus.Started)
                 throw new DomainException(DomainExceptionCode.CannotFinishAlteration_NotStarted);
             this.Status = AlterationStatus.Done;
+            this.UpdateDate = DateTime.Now;
         }
     }
 }

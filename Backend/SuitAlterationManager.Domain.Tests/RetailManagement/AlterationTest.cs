@@ -67,6 +67,7 @@ namespace SuitAlterationManager.Domain.Tests.RetailManagement
             Alteration alteration = new AlterationBuilder().WithStatus(AlterationStatus.Paid);
             alteration.StartAlteration();
             Assert.AreEqual(AlterationStatus.Started, alteration.Status);
+            Assert.IsNotNull(alteration.UpdateDate);
         }
 
         [TestMethod]
@@ -86,6 +87,7 @@ namespace SuitAlterationManager.Domain.Tests.RetailManagement
             Alteration alteration = new AlterationBuilder().WithStatus(AlterationStatus.Started);
             alteration.FinishAlteration();
             Assert.AreEqual(AlterationStatus.Done, alteration.Status);
+            Assert.IsNotNull(alteration.UpdateDate);
         }
     }
 }

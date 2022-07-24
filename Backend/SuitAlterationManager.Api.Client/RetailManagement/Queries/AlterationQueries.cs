@@ -10,6 +10,7 @@ namespace SuitAlterationManager.Api.Client.AlterationManagement.Queries
 {
     public interface IAlterationQueries : IQueryService
     {
+        Task<AlterationResponse> FindAlterationAsync(Guid idAlteration);
         Task<List<AlterationResponse>> GetAlterationsAsync();
     }
 
@@ -39,6 +40,25 @@ namespace SuitAlterationManager.Api.Client.AlterationManagement.Queries
             var result = await query.GetAsync<AlterationResponse>();
 
             return result.ToList();
+        }
+        public async Task<AlterationResponse> FindAlterationAsync(Guid idAlteration)
+        {
+            var query = db.Query("Retail.Alteration")
+              .Where("Id", idAlteration)
+              .Select(
+                "Alteration.Id",
+                "Alteration.CustomerEmail",
+                "Alteration.Type",
+                "Alteration.Direction",
+                "Alteration.Status",
+                "Alteration.MeasureCM",
+                "Alteration.CreateDate",
+                "Alteration.UpdateDate"
+              );
+
+            var result = await query.FirstOrDefaultAsync<AlterationResponse>();
+
+            return result;
         }
     }
 }
