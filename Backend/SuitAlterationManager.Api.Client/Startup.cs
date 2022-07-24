@@ -8,6 +8,7 @@ using SuitAlterationManager.Api.Client.DI;
 using SuitAlterationManager.Api.Middlewares;
 using SuitAlterationManager.Extensions.DI;
 using SuitAlterationManager.Infrastructure.Logger;
+using SuitAlterationManager.Infrastructure.MessageDispatchers;
 
 namespace SuitAlterationManager.Api.Client
 {
@@ -35,6 +36,7 @@ namespace SuitAlterationManager.Api.Client
                 Assembly.Load("SuitAlterationManager.Api.Client"));
 
             services.AddSingleton<ILoggerService, LoggerService>();
+            services.AddScoped<IMessageDispatcherService, AzureServiceBusDispatcherService>();
             services.AddSwagger("v1", Configuration["ApiName"]);
             services.AddJWTAuth();
 

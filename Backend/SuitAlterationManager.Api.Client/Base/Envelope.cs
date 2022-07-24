@@ -1,7 +1,7 @@
 using System;
 using System.Text.Json;
 
-namespace SuitAlterationManager.Api.Client
+namespace SuitAlterationManager.Api.Client.Base
 {  
     [Serializable]
     public partial struct Envelope

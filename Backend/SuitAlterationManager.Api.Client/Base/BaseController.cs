@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace SuitAlterationManager.Api.Client
+namespace SuitAlterationManager.Api.Client.Base
 {
     [Controller]
 	public abstract class BaseController : ControllerBase

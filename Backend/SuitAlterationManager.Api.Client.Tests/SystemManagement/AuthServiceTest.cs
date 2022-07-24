@@ -14,7 +14,7 @@ using System;
 namespace SuitAlterationManager.Api.Client.Tests
 {
     [TestClass]
-    public class LiveSessionApplicationServiceTest
+    public class AuthServiceTest
     {
         private readonly IUserQueries userQueries = Substitute.For<IUserQueries>();
 

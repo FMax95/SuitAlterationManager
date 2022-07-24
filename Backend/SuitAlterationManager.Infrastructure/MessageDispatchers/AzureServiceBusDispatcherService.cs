@@ -1,11 +1,11 @@
 ﻿using Azure.Messaging.ServiceBus;
 using System.Threading.Tasks;
 
-namespace SuitAlterationManager.Api.Client
+namespace SuitAlterationManager.Infrastructure.MessageDispatchers
 {
-    public static class AzureServiceBusDispatcher
+    public class AzureServiceBusDispatcherService : IMessageDispatcherService
     {
-        public static async Task SendMessageAsync(string queueOrTopicName, string messageToSend)
+        public async Task SendMessageAsync(string queueOrTopicName, string messageToSend)
         {
             ServiceBusClient client = new ServiceBusClient("Endpoint=sb://flaviotestsb.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=zEKMgliuem98YQYcxAHIHYTwsScRVI5mKEk957rXUCM=");
 

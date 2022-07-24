@@ -2,6 +2,7 @@
 using SuitAlterationManager.Api.Client.AlterationManagement.Queries;
 using SuitAlterationManager.Api.Client.RetailManagement.Services.Interfaces;
 using SuitAlterationManager.Domain.SystemManagement.Services.Interfaces;
+using SuitAlterationManager.Infrastructure.MessageDispatchers;
 using System;
 using System.Threading.Tasks;
 
@@ -11,17 +12,19 @@ namespace SuitAlterationManager.Api.Client.RetailManagement.Services
     {
         private readonly IAlterationService alterationService;
         private readonly IAlterationQueries alterationQueries;
-        public AlterationApplicationService(IAlterationService alterationService, IAlterationQueries alterationQueries)
+        private readonly IMessageDispatcherService messageDispatcher;
+        public AlterationApplicationService(IAlterationService alterationService, IAlterationQueries alterationQueries, IMessageDispatcherService messageDispatcher)
         {
             this.alterationService = alterationService;
             this.alterationQueries = alterationQueries;
+            this.messageDispatcher = messageDispatcher;
         }
 
         public async Task FinishAlteration(Guid idAlteration)
         {
             await alterationService.FinishAlterationAsync(idAlteration);
             var customerEmail = await this.alterationQueries.FindAlterationMailAsync(idAlteration);
-            await AzureServiceBusDispatcher.SendMessageAsync("AlterationFinished", JsonConvert.SerializeObject(new
+            await messageDispatcher.SendMessageAsync("AlterationFinished", JsonConvert.SerializeObject(new
             {
                 idAlteration = idAlteration,
                 customerEmail = customerEmail
