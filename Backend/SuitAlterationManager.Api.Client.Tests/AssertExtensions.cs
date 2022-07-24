@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SuitAlterationManager.Domain.Base.Validation;
 using System;
 using System.Linq;
@@ -32,10 +30,6 @@ namespace SuitAlterationManager.Api.Client.Tests
 		{
 			switch (ex)
 			{
-				case ValidationException v:
-					Assert.IsTrue(v.Errors.Any(e => e.ErrorCode == code),
-						$" Expected: {code}, Actual: {string.Join(",", v.Errors.Select(e => e.ErrorCode))}");
-					break;
 				case DomainException d:
 					Assert.AreEqual(code, d.Code);
 					break;
