@@ -7,6 +7,7 @@ using SuitAlterationManager.Api.Client.SystemManagement.Services.Interfaces;
 using SuitAlterationManager.Api.Client.SystemManagement.Models;
 using Microsoft.Extensions.Logging;
 using System;
+using SuitAlterationManager.Api.Client.Base;
 
 namespace SuitAlterationManager.Api.Client.SystemManagement
 {

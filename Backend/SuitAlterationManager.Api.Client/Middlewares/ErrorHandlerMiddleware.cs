@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using SuitAlterationManager.Api.Client;
+using SuitAlterationManager.Api.Client.Base;
 using SuitAlterationManager.Domain.Base.Attributes;
 using SuitAlterationManager.Domain.Base.Validation;
 using SuitAlterationManager.Infrastructure.Logger;
