@@ -89,5 +89,25 @@ namespace SuitAlterationManager.Domain.Tests.RetailManagement
             Assert.AreEqual(AlterationStatus.Done, alteration.Status);
             Assert.IsNotNull(alteration.UpdateDate);
         }
+
+        [TestMethod]
+        [DataRow(AlterationStatus.Started)]
+        [DataRow(AlterationStatus.Paid)]
+        [DataRow(AlterationStatus.Done)]
+        public void PayAlteration_WrongStatus(AlterationStatus status)
+        {
+            Alteration alteration = new AlterationBuilder().WithStatus(status);
+            Assert.That.ThrowsWithCode<DomainException>(DomainExceptionCode.CannotPayAlteration_NotCreated, () =>
+                alteration.PayAlteration());
+        }
+
+        [TestMethod]
+        public void PayAlteration()
+        {
+            Alteration alteration = new AlterationBuilder().WithStatus(AlterationStatus.Created);
+            alteration.PayAlteration();
+            Assert.AreEqual(AlterationStatus.Paid, alteration.Status);
+            Assert.IsNotNull(alteration.UpdateDate);
+        }
     }
 }

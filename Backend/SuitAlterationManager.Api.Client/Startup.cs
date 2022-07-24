@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SuitAlterationManager.Api.Client.DI;
 using SuitAlterationManager.Api.Middlewares;
+using SuitAlterationManager.Extensions.DI;
 using SuitAlterationManager.Infrastructure.Logger;
 
 namespace SuitAlterationManager.Api.Client

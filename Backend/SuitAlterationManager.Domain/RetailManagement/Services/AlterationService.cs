@@ -34,6 +34,12 @@ namespace SuitAlterationManager.Domain.SystemManagement.Services
             entity.StartAlteration();
         }
 
+        public async Task PayAlterationAsync(Guid idAlteration)
+        {
+            var entity = await this.alterationRepository.GetAsync(new AlterationID(idAlteration));
+            entity.PayAlteration();
+        }
+
         public async Task FinishAlterationAsync(Guid idAlteration)
         {
             var entity = await this.alterationRepository.GetAsync(new AlterationID(idAlteration));

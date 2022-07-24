@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SuitAlterationManager.Domain.Base.Interfaces;
 using SuitAlterationManager.Infrastructure.EF;
 
-namespace SuitAlterationManager.Api.Client.DI
+namespace SuitAlterationManager.Extensions.DI
 {
     public static class WriteCycle
     {

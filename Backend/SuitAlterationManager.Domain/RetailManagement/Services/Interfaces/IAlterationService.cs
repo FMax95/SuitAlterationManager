@@ -9,6 +9,7 @@ namespace SuitAlterationManager.Domain.SystemManagement.Services.Interfaces
     {
         Task CreateAlterationAsync(CreateAlterationDTO input);
         Task FinishAlterationAsync(Guid idAlteration);
+        Task PayAlterationAsync(Guid idAlteration);
         Task StartAlterationAsync(Guid idAlteration);
     }
 }

@@ -56,6 +56,15 @@ namespace SuitAlterationManager.Domain.AlterationManagement
             this.UpdateDate = DateTime.Now;
         }
 
+        public void PayAlteration()
+        {
+            if (this.Status != AlterationStatus.Created)
+                throw new DomainException(DomainExceptionCode.CannotPayAlteration_NotCreated);
+            this.Status = AlterationStatus.Paid;
+            this.UpdateDate = DateTime.Now;
+        }
+
+
         public void FinishAlteration()
         {
             if (this.Status != AlterationStatus.Started)

@@ -7,7 +7,7 @@ namespace NotificationHub
     {
         [Function("SendNotification")]
         public static async Task SendNotification(
-            [ServiceBusTrigger(topicName: "AlterationFinished", subscriptionName:"emailsubscription", Connection = "ServiceBusConnectionString")] string item,        
+            [ServiceBusTrigger(queueName: "AlterationFinished", Connection = "ServiceBusConnectionString")] string item,
             FunctionContext executionContext)
         {
             //var obj = JsonConvert.DeserializeObject<object>(item);
