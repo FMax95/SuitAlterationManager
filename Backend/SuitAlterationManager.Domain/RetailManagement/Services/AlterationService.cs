@@ -16,7 +16,11 @@ namespace SuitAlterationManager.Domain.SystemManagement.Services
         {
             this.alterationRepository = alterationRepository;
         }
-
+        /// <summary>
+        /// Creates a new Alteration
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task CreateAlterationAsync(CreateAlterationDTO input)
         {
             var entity = Alteration.Create(customerEmail: input.CustomerEmail,
@@ -27,19 +31,31 @@ namespace SuitAlterationManager.Domain.SystemManagement.Services
             await this.alterationRepository.AddAsync(entity);
         }
 
-
+        /// <summary>
+        /// Marks the alteration as Started
+        /// </summary>
+        /// <param name="idAlteration"></param>
+        /// <returns></returns>
         public async Task StartAlterationAsync(Guid idAlteration)
         {
             var entity = await this.alterationRepository.GetAsync(new AlterationID(idAlteration));
             entity.StartAlteration();
         }
-
+        /// <summary>
+        /// Marks the alteration as Paid
+        /// </summary>
+        /// <param name="idAlteration"></param>
+        /// <returns></returns>
         public async Task PayAlterationAsync(Guid idAlteration)
         {
             var entity = await this.alterationRepository.GetAsync(new AlterationID(idAlteration));
             entity.PayAlteration();
         }
-
+        /// <summary>
+        /// Marks the alteration as Done
+        /// </summary>
+        /// <param name="idAlteration"></param>
+        /// <returns></returns>
         public async Task FinishAlterationAsync(Guid idAlteration)
         {
             var entity = await this.alterationRepository.GetAsync(new AlterationID(idAlteration));

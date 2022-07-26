@@ -22,7 +22,10 @@ namespace SuitAlterationManager.Api.Client.AlterationManagement.Queries
         {
             this.db = db;
         }
-        
+        /// <summary>
+        /// Get all the Alterations
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<AlterationResponse>> GetAlterationsAsync()
         {
             var query = db.Query("Retail.Alteration")
@@ -41,6 +44,11 @@ namespace SuitAlterationManager.Api.Client.AlterationManagement.Queries
 
             return result.ToList();
         }
+        /// <summary>
+        /// Returns the CustomerEmail of the Alteration if exists
+        /// </summary>
+        /// <param name="idAlteration"></param>
+        /// <returns></returns>
         public async Task<string> FindAlterationMailAsync(Guid idAlteration)
         {
             var query = db.Query("Retail.Alteration")

@@ -19,7 +19,11 @@ namespace SuitAlterationManager.Api.Client.RetailManagement.Services
             this.alterationQueries = alterationQueries;
             this.messageDispatcher = messageDispatcher;
         }
-
+        /// <summary>
+        /// Ends an alteration and send an AlterationFinished message
+        /// </summary>
+        /// <param name="idAlteration"></param>
+        /// <returns></returns>
         public async Task FinishAlteration(Guid idAlteration)
         {
             await alterationService.FinishAlterationAsync(idAlteration);

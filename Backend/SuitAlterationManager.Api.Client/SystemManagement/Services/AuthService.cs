@@ -20,6 +20,13 @@ namespace SuitAlterationManager.Api.Client.SystemManagement.Services
         {
             this.userQueries = userQueries;
         }
+        /// <summary>
+        /// Authenticate the user and returns a valid JWT token
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        /// <exception cref="ApplicationServiceException"></exception>
         public async Task<AuthResponse> Authenticate(string email, string password)
         {
             var user = await this.userQueries.FindUserByEmailAsync(email);

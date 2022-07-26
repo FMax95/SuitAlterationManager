@@ -7,32 +7,36 @@ using System.Threading.Tasks;
 
 namespace SuitAlterationManager.Api.Client.SystemManagement.Queries
 {
-        public interface IUserQueries : IQueryService
+    public interface IUserQueries : IQueryService
+    {
+        Task<UserResponse> FindUserByEmailAsync(string email);
+    }
+
+    public class UserQueries : IUserQueries
+    {
+        private readonly QueryFactory db;
+
+        public UserQueries(QueryFactory db)
         {
-            Task<UserResponse> FindUserByEmailAsync(string email);
+            this.db = db;
         }
-
-        public class UserQueries : IUserQueries
+        /// <summary>
+        /// Finds the user with the email specified if exists
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<UserResponse> FindUserByEmailAsync(string email)
         {
-            private readonly QueryFactory db;
+            var query = db.Query("System.User")
+              .Where("Email", email)
+              .Select(
+                "User.Id",
+                "User.Email",
+                "User.Password"
+              );
 
-            public UserQueries(QueryFactory db)
-            {
-                this.db = db;
-            }
-
-            public async Task<UserResponse> FindUserByEmailAsync(string email)
-            {
-                var query = db.Query("System.User")
-                  .Where("Email",email)
-                  .Select(
-                    "User.Id",
-                    "User.Email",
-                    "User.Password"
-                  );
-
-                var result = await query.FirstOrDefaultAsync<UserResponse>();
-                return result;
-            }
+            var result = await query.FirstOrDefaultAsync<UserResponse>();
+            return result;
         }
+    }
 }
