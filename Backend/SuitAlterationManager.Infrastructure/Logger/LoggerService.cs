@@ -1,4 +1,5 @@
-﻿using SuitAlterationManager.Infrastructure.Logger.Managers;
+﻿using Microsoft.Extensions.Configuration;
+using SuitAlterationManager.Infrastructure.Logger.Managers;
 using System;
 
 namespace SuitAlterationManager.Infrastructure.Logger
@@ -7,9 +8,9 @@ namespace SuitAlterationManager.Infrastructure.Logger
 	{
 		public ILoggerManager Logger { get; set; }
 
-		public LoggerService()
+		public LoggerService(IConfiguration configuration)
 		{
-			Logger = new SerilogManager();
+			Logger = new SerilogManager(configuration.GetValue<string>("ApplicationInsightKey"));
 		}
 
 		public void Info<T>(string message) => Logger.Info<T>(message);

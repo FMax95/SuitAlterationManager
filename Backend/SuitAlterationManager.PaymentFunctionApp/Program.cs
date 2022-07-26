@@ -33,7 +33,7 @@ namespace PaymentFunctionApp
             {
                 Log.Logger = new LoggerConfiguration()
                     .WriteTo
-                    .ApplicationInsights(new TelemetryConfiguration { InstrumentationKey = "33b99516-996a-4a14-aa8d-53013a40bf3e" }, TelemetryConverter.Traces)
+                    .ApplicationInsights(new TelemetryConfiguration { InstrumentationKey = Environment.GetEnvironmentVariable("ApplicationInsightKey") }, TelemetryConverter.Traces)
                     .CreateLogger();
 
                 Log.ForContext<Program>().Fatal(ex, "Host terminated unexpectedly!");
